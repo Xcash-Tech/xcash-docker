@@ -29,8 +29,12 @@ RUN apt-get install git -y && \
 FROM debian:buster-20240612
 
 COPY --from=builder /xcash/build/xcash-dpops /root/xcash/xcash-dpops
+COPY ./scripts/* /root/xcash/
 
 RUN apt-get update && apt-get install -y \
+    curl \
+    jq \
+    netcat \
     libssl1.1 \
     libmongoc-1.0-0 \
     libuv1 \

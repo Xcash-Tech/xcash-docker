@@ -1,0 +1,34 @@
+services:
+  xcash-node:
+    image: xcashtech/xcash-core:latest
+    container_name: xcash-node
+    ports:
+      - "18280:18280"
+      - "18281:18281"
+    networks:
+      - xcash-network
+    volumes:
+      - ../../data:/data
+    environment:
+      - NODE_PUB_ADDR=${NODE_PUB_ADDR}
+      - NODE_SEC_KEY=${NODE_SEC_KEY}
+    command: >
+      ./xcashd --data-dir /data/bc
+      --xcash-dpops-delegates-public-address ${NODE_PUB_ADDR}
+      --xcash-dpops-delegates-secret-key ${NODE_SEC_KEY}
+      --rpc-bind-ip 0.0.0.0
+      --p2p-bind-ip 0.0.0.0
+      --rpc-bind-port 18281
+      --restricted-rpc
+      --confirm-external-bind
+      --log-file /data/logs/xcash-daemon-log.txt
+      --max-log-file-size 0
+      --log-level 0
+      --non-interactive
+    healthcheck:
+      test: ["CMD", "./node-check.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always
+

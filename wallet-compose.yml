@@ -1,0 +1,30 @@
+services:
+  xcash-wallet:
+    image: xcashtech/xcash-core:latest
+    container_name: xcash-wallet
+    ports:
+      - "127.0.0.1:18285:18285"
+    networks:
+      - xcash-network
+    volumes:
+      - ../../data:/data
+    depends_on:
+      - xcash-node
+    environment:
+      - WALLET_PASSWORD=${WALLET_PASSWORD}
+    command: >
+      ./xcash-wallet-rpc --wallet-file /data/wallet/delegate-wallet
+      --password ${WALLET_PASSWORD}
+      --rpc-bind-ip 0.0.0.0
+      --rpc-bind-port 18285
+      --confirm-external-bind
+      --daemon-address xcash-node:18281
+      --disable-rpc-login
+      --trusted-daemon
+      --log-file /data/logs/xcash-wallet-rpc.log
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18285/json_rpc"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always

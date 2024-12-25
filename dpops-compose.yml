@@ -1,0 +1,24 @@
+services:
+  xcash-dpops:
+    image: xcashtech/xcash-dpops:latest
+    container_name: xcash-dpops
+    ports:
+      - "18283:18283"
+    networks:
+      - xcash-network
+    volumes:
+      - ../../data:/data
+    depends_on:
+      - xcash-node
+      - xcash-wallet
+      - mongodb
+    environment:
+      - NODE_SEC_KEY=${NODE_SEC_KEY}
+    command: ["/bin/bash", "./dpops-start.sh"]
+
+    healthcheck:
+      test: ["CMD", "./dpops-check.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always

@@ -1,0 +1,10 @@
+include:
+  - path: 
+      - ./node-compose.yml
+      - ./wallet-compose.yml
+      - ./mongo-compose.yml
+      - ./dpops-compose.yml
+
+networks:
+  xcash-network:
+    driver: bridge
