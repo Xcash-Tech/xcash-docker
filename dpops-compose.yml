@@ -17,7 +17,7 @@ services:
     command: ["/bin/bash", "./dpops-start.sh"]
 
     healthcheck:
-      test: ["CMD", "./dpops-check.sh"]
+      test: ["CMD", "/bin/bash", "./dpops-check.sh"]
       interval: 30s
       timeout: 10s
       retries: 3

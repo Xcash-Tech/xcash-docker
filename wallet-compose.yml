@@ -23,7 +23,7 @@ services:
       --trusted-daemon
       --log-file /data/logs/xcash-wallet-rpc.log
     healthcheck:
-      test: ["CMD", "./wallet-check.sh"]
+      test: ["CMD", "/bin/bash", "./wallet-check.sh"]
       interval: 30s
       timeout: 10s
       retries: 3
