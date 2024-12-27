@@ -9,7 +9,8 @@ services:
     volumes:
       - ../../data:/data
     depends_on:
-      - xcash-node
+      xcash-node:
+        condition: service_healthy
     environment:
       - WALLET_PASSWORD=${WALLET_PASSWORD}
     command: >
@@ -27,4 +28,5 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
     restart: always

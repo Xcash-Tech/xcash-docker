@@ -4,6 +4,14 @@ include:
       - ./wallet-compose.yml
       - ./mongo-compose.yml
       - ./dpops-compose.yml
+services:
+  autoheal:
+    image: willfarrell/autoheal
+    container_name: autoheal
+    networks:
+      - xcash-network
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all 
 
 networks:
   xcash-network:
