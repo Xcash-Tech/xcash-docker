@@ -17,7 +17,15 @@ services:
           condition: service_healthy
     environment:
       - NODE_SEC_KEY=${NODE_SEC_KEY}
-    command: ["/bin/bash", "./dpops-start.sh"]
+    command: [
+      "./xcash-dpops",
+      "--block-verifiers-secret-key", "${NODE_SEC_KEY}",
+      "--xcash-daemon-ip-address", "xcash-node",
+      "--xcash-wallet-ip-address", "xcash-wallet",
+      "--mongodb-uri", "mongodb://mongodb:27017",
+      "--server-log-file", "/data/logs/dpops-server.log",
+      "--total-threads", "4"
+    ]
 
     healthcheck:
       test: ["CMD", "/bin/bash", "./dpops-check.sh"]
