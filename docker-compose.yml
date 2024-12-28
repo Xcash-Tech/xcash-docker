@@ -11,7 +11,8 @@ services:
     networks:
       - xcash-network
     environment:
-      - AUTOHEAL_CONTAINER_LABEL=all 
+      AUTOHEAL_CONTAINER_LABEL: autoheal-xcash:-all
+      AUTOHEAL_INTERVAL: "20"
 
 networks:
   xcash-network:
