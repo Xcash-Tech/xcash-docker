@@ -8,11 +8,13 @@ services:
   autoheal:
     image: willfarrell/autoheal
     container_name: autoheal
+    restart: unless-stopped
     networks:
       - xcash-network
     environment:
-      AUTOHEAL_CONTAINER_LABEL: autoheal-xcash:-all
+      AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
       AUTOHEAL_INTERVAL: "20"
+
 
 networks:
   xcash-network:

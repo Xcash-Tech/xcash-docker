@@ -35,4 +35,4 @@ services:
       start_period: 10s
     restart: always
     labels:
-      autoheal-xcash: true
+      - "$AUTOHEAL_CONTAINER_LABEL=true"
